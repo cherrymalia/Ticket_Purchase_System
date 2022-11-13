@@ -8,7 +8,6 @@ public class Flight extends Ticket {
     Scanner input = new Scanner(System.in);
     Random rand = new Random();
     String flightNum, ticketNum = "";
-    int seatNum = 0;
     boolean[][] G100;
     boolean[][] G400;
 
@@ -26,6 +25,7 @@ public class Flight extends Ticket {
      */
     public void mainMenu() {
         String selection = "";
+        String seatNum = "";
         System.out.println("\n\tMain Menu \n\"1\" - Purchase a new ticket \n\"2\" - View existing ticket");
         System.out.print("Your selection: ");
 
@@ -33,11 +33,14 @@ public class Flight extends Ticket {
             selection = input.nextLine();
             switch (selection) {
                 case "1":
-                    System.out.println("===============================================");
+                    System.out.println("\n===============================================");
                     flightInfo();
                     System.out.println("===============================================\n");
-                    System.out.print("Please enter the flight number you would like to purchase: ");
-                    buyTicket(input.nextLine());
+                    //confirmation(buyTicket(input.nextLine()));
+                    do {
+                        System.out.print("Please enter the flight number you would like to purchase: ");
+                        seatNum = buyTicket(input.nextLine());
+                    } while (seatNum.equals(""));
                     break;
                 case "2":
                     // display prompt to enter ticket/seat number
@@ -71,37 +74,29 @@ public class Flight extends Ticket {
             case "100":
                 System.out.print("\nEnter your first and last name: ");
                 name = input.nextLine();
-                System.out.println("Name: " + name + "\n");
                 displaySeats(G100);
                 do {
                     seat = seatSelector(G100);
                 } while (seat == "");
-                System.out.println("Seat: " + seat);
                 ticketNum = "G100" + String.format("%04d", rand.nextInt(9998));
-                System.out.println(ticketNum);
                 ticket = new Ticket(name, flightNum, ticketNum, seat);
                 generateTicket(ticket);
-                break;
+                return seat;
             case "400":
                 System.out.print("\nEnter your first and last name: ");
                 name = input.nextLine();
-                System.out.println("Name: " + name + "\n");
                 displaySeats(G400);
                 do {
                     seat = seatSelector(G400);
                 } while (seat == "");
-                System.out.println("Seat: " + seat);
                 ticketNum = "G400" + String.format("%04d", rand.nextInt(9998));
-                System.out.println(ticketNum);
                 ticket = new Ticket(name, flightNum, ticketNum, seat);
                 generateTicket(ticket);
-                break;
+                return seat;
             default:
                 System.out.println("Flight number not recognized. Please try again.");
-                break;
+                return "";
         }
-        
-        return seat;
     }
 
     /*
@@ -119,7 +114,7 @@ public class Flight extends Ticket {
      * TO-DO: FIX THIS COMMENT BLOCK
      */
     public void displaySeats(boolean[][] flightNum) {
-        System.out.println("     A   B   C\n   -------------");
+        System.out.println("\n\n     A   B   C\n   -------------");
         for (int i = 0; i < flightNum.length; i++) {
             System.out.print(" " + (i + 1) + " |");
 
@@ -150,10 +145,9 @@ public class Flight extends Ticket {
         String seat = input.nextLine();
         seat = seat.toUpperCase();
         seat = seat.replaceAll(" ", "");
-        System.out.println(seat);
 
         if (!seat.contains(",")) {
-            System.out.println("Invalid seat selection. Please try again.");
+            System.out.println("Invalid selection. Please try again.");
             return "";
         } else {
             String[] seatArray = seat.split(",");
@@ -161,7 +155,7 @@ public class Flight extends Ticket {
             int col = 0;
 
             if (row < 0 || row > flightNum.length) {
-                System.out.println("Invalid row selection. Please try again.");
+                System.out.println("Invalid selection. Please try again.");
                 return "";
             } else {
                 switch (seatArray[1].toUpperCase()) {
@@ -175,7 +169,7 @@ public class Flight extends Ticket {
                         col = 2;
                         break;
                     default:
-                        System.out.println("Invalid column selection. Please try again.");
+                        System.out.println("Invalid selection. Please try again.");
                         return "";
                 }
 
