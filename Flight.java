@@ -25,28 +25,32 @@ public class Flight extends Ticket {
      */
     public void mainMenu() {
         String selection = "";
-        String seatNum = "";
-        System.out.println("\n\tMain Menu \n\"1\" - Purchase a new ticket \n\"2\" - View existing ticket");
+        String number = "";
+        System.out.println("\n\t\tMain Menu \n\"1\" - Purchase a new ticket \n\"2\" - View existing ticket");
         System.out.print("Your selection: ");
 
         while (!selection.equals("1") && !selection.equals("2")) {
             selection = input.nextLine();
             switch (selection) {
                 case "1":
-                    System.out.println("\n===============================================");
+                    System.out.println("\n***********************************************");
                     flightInfo();
-                    System.out.println("===============================================\n");
-                    //confirmation(buyTicket(input.nextLine()));
+                    System.out.println("***********************************************\n");
+
                     do {
                         System.out.print("Please enter the flight number you would like to purchase: ");
-                        seatNum = buyTicket(input.nextLine());
-                    } while (seatNum.equals(""));
+                        number = buyTicket(input.nextLine());
+                    } while (number.equals(""));
+
+                    confirmation(number);
                     break;
                 case "2":
-                    // display prompt to enter ticket/seat number
-                    // display ticket
-                    // flight.getTicket(ticket);
-                    System.out.println("WIP");
+
+                do {
+                    System.out.print("\nPlease enter your ticket number: ");
+                    number = getTicket(input.nextLine());
+                } while (number.equals(""));
+
                     break;
                 default:
                     System.out.println("\n\nCommand not recognized. Please try again.");
@@ -69,7 +73,6 @@ public class Flight extends Ticket {
     public String buyTicket(String flightNum) {
         Ticket ticket;
         String name, ticketNum, seat = "";
-        // String name, ticketNum, seat = "";
         switch (flightNum) {
             case "100":
                 System.out.print("\nEnter your first and last name: ");
@@ -131,8 +134,6 @@ public class Flight extends Ticket {
     }
 
     /*
-     * TO-DO: FIND A WAY TO VALIDATE THE SEAT INPUT
-     * I.E. IF THE USER ENTERS A LETTER INSTEAD OF A NUMBER (regex?)
      * TO-DO: FIX THIS COMMENT BLOCK
      */
     public String seatSelector(boolean[][] flightNum) {
@@ -147,15 +148,19 @@ public class Flight extends Ticket {
         seat = seat.replaceAll(" ", "");
 
         if (!seat.contains(",")) {
-            System.out.println("Invalid selection. Please try again.");
+            System.out.println("Invalid seat selection. Please try again.");
             return "";
         } else {
             String[] seatArray = seat.split(",");
+            if (!seatArray[0].matches("\\d+")) {
+                System.out.println("Invalid seat selection. Please try again.");
+                return "";
+            }
             int row = Integer.parseInt(seatArray[0]) - 1;
             int col = 0;
 
             if (row < 0 || row > flightNum.length) {
-                System.out.println("Invalid selection. Please try again.");
+                System.out.println("Invalid seat selection. Please try again.");
                 return "";
             } else {
                 switch (seatArray[1].toUpperCase()) {
@@ -169,7 +174,7 @@ public class Flight extends Ticket {
                         col = 2;
                         break;
                     default:
-                        System.out.println("Invalid selection. Please try again.");
+                        System.out.println("Invalid seat selection. Please try again.");
                         return "";
                 }
 
