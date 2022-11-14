@@ -21,7 +21,6 @@ public class Flight extends Ticket {
 
     /*
      * TO-DO: COMPLETE CASE 2 FOR THIS METHOD
-     * TO-DO: FIGURE OUT HOW TO GET THE PROGRAM TO LOOP BACK TO THE MAIN MENU
      */
     public void mainMenu() {
         String selection = "";
@@ -40,16 +39,23 @@ public class Flight extends Ticket {
                     do {
                         System.out.print("Please enter the flight number you would like to purchase: ");
                         number = buyTicket(input.nextLine());
+                        if (number.equals("FULL")) {
+                            System.out.println("Please select another flight.");
+                        }
                     } while (number.equals(""));
-
-                    confirmation(number);
+                    
+                    if (number.equals("FULL")) {
+                        break;
+                    } else {
+                        confirmation(number);
+                    }
                     break;
                 case "2":
 
-                do {
-                    System.out.print("\nPlease enter your ticket number: ");
-                    number = getTicket(input.nextLine());
-                } while (number.equals(""));
+                    do {
+                        System.out.print("\nPlease enter your ticket number: ");
+                        number = getTicket(input.nextLine());
+                    } while (number.equals(""));
 
                     break;
                 default:
@@ -61,31 +67,42 @@ public class Flight extends Ticket {
         }
     }
 
-    
-
     /*
      * TO-DO: CHECK IF PLANE IS FULL USING AIRPLANEFULL() METHOD
      * TO-DO: CHECK IF TICKETNUM IS ALREADY IN USE
-     * TO-DO: CREATE TICKET OBJECT AND CALL FOR BUYTICKET()
-     * TO-DO: REGEX FOR NAME
+     * TO-DO: REGEX FOR NAME (?)
      * TO-DO: FIX THIS COMMENT BLOCK
      */
     public String buyTicket(String flightNum) {
         Ticket ticket;
         String name, ticketNum, seat = "";
+
         switch (flightNum) {
             case "100":
+                try {
+                    AirplaneFull(G100);
+                } catch (AirplaneFullException e) {
+                    System.out.println(e.getMessage());
+                    return "FULL";
+                }
                 System.out.print("\nEnter your first and last name: ");
                 name = input.nextLine();
                 displaySeats(G100);
                 do {
                     seat = seatSelector(G100);
                 } while (seat == "");
+
                 ticketNum = "G100" + String.format("%04d", rand.nextInt(9998));
                 ticket = new Ticket(name, flightNum, ticketNum, seat);
                 generateTicket(ticket);
                 return seat;
             case "400":
+                try {
+                    AirplaneFull(G400);
+                } catch (AirplaneFullException e) {
+                    System.out.println(e.getMessage());
+                    return "FULL";
+                }
                 System.out.print("\nEnter your first and last name: ");
                 name = input.nextLine();
                 displaySeats(G400);
@@ -102,16 +119,23 @@ public class Flight extends Ticket {
         }
     }
 
-    /*
-     * public boolean AirplaneFull() {
-     * 
-     * return false;
-     * }
-     * 
-     * public void AirplaneFullException() throws Exception {
-     * 
-     * }
-     */
+    public boolean AirplaneFull(boolean[][] flight) throws AirplaneFullException {
+        int totalSeats = (flight.length * flight[0].length);
+        int unavailableSeats = 0;
+        for (int i = 0; i < flight.length; i++) {
+            for (int j = 0; j < flight[i].length; j++) {
+                if (flight[i][j] == true) {
+                    unavailableSeats++;
+                }
+            }
+        }
+        if (unavailableSeats == totalSeats) {
+            throw new AirplaneFullException();
+        } else {
+            return false;
+        }
+
+    }
 
     /*
      * TO-DO: FIX THIS COMMENT BLOCK

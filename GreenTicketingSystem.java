@@ -11,12 +11,11 @@ public class GreenTicketingSystem {
         System.out.println("********************************************");
 
         do {
-            //validate input
             flight.mainMenu();
-            System.out.println("*********************************************");
+            System.out.println("**********************************************");
             System.out.print("Would you like to return the main menu? (Y/N): ");
             repeat = input.nextLine();
-            System.out.println("*********************************************");
+            System.out.println("**********************************************");
         } while (repeat.equalsIgnoreCase("Y"));
 
         input.close();

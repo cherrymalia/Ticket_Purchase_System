@@ -39,12 +39,12 @@ public class Ticket {
     }
 
     /*
-     * TO-DO: MAKE SURE THAT SAME SEAT NUMBER FROM DIFFERENT FLIGHTS DOESN'T JUST
-     * USE FIRST INSTANCE
+     * 
      */
     public void confirmation(String seat) {
-        System.out.println("\n\nThank you for purchasing a ticket with Green Company!");
-        System.out.println("\n===============================================");
+        System.out.println("\n\n===================================================");
+        System.out.println("Thank you for purchasing a ticket with Green Company!");
+        System.out.println("===================================================");
         int index = tickets.size() - 1;
         if (tickets.get(index).seatNum.equals(seat)) {
             System.out.println(tickets.get(index).name + "\nTicket: " + tickets.get(index).ticketNum);
@@ -55,7 +55,7 @@ public class Ticket {
             } else if (tickets.get(index).flightNum.equals("400")) {
                 System.out.println("\nDecember 9, 2022\nGSO-SEA | 4:00 PM - 11:30 PM\t(10 hr 30 min)");
             }
-            System.out.println("===============================================\n");
+            System.out.println("==================================================\n");
         }
     }
 
