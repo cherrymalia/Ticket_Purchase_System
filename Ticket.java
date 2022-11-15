@@ -39,7 +39,23 @@ public class Ticket {
     }
 
     /*
-     * 
+     * TO-DO: CORRECTLY MATCH TICKET NUMBER TO RECORD IN TICKETS ARRAYLIST
+     * REMOVE TICKET FROM ARRAYLIST AND RETURN SEAT NUMBER
+     */
+    public String returnTicket(String num) {
+        String seat = "";
+
+        for (int i = 0; i < tickets.size(); i++) {
+            if (num.equals(tickets.get(i).ticketNum)) {
+                seat = tickets.get(i).seatNum;
+                tickets.remove(i);
+                System.out.println("Ticket " + num + " has been cancelled.");
+            }
+        }
+        return seat;
+    }
+    /*
+     * TO-DO: FIX THIS COMMENT BLOCK
      */
     public void confirmation(String seat) {
         System.out.println("\n\n===================================================");
@@ -67,7 +83,7 @@ public class Ticket {
     }
 
     /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+     * TO-DO: ACCURATELY MATCH TICKET NUMBER EVEN IF USER ENTERS LOWERCASE G
      */
     public String getTicket(String num) {
         // check if num is seat number or ticket number
@@ -75,7 +91,7 @@ public class Ticket {
         // print ticket info\
 
         System.out.println("\n===============================================");
-        if (num.matches("^[G][\\d]{7}$")) {
+        if (num.toUpperCase().matches("^[G][\\d]{7}$")) {
             for (int i = 0; i < tickets.size(); i++) {
                 if (tickets.get(i).ticketNum.equals(num)) {
                     System.out.println(tickets.get(i).name + "\nTicket: " + tickets.get(i).ticketNum);

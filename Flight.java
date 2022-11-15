@@ -8,6 +8,7 @@ public class Flight extends Ticket {
     Scanner input = new Scanner(System.in);
     Random rand = new Random();
     String flightNum, ticketNum = "";
+    String[] seatArray;
     boolean[][] G100;
     boolean[][] G400;
 
@@ -20,11 +21,14 @@ public class Flight extends Ticket {
     }
 
     /*
-     * TO-DO: COMPLETE CASE 2 FOR THIS METHOD
+     * TO-DO: MAKE NAVIGATION BETWEEN MENU OPTIONS QUICKER
+     * ADD OPTION TO PURCHASE TICKETS BACK TO BACK
+     * CORRECT FLOW AFTER CANCELLING TICKET
      */
     public void mainMenu() {
         String selection = "";
         String number = "";
+        String returned = "";
         System.out.println("\n\t\tMain Menu \n\"1\" - Purchase a new ticket \n\"2\" - View existing ticket");
         System.out.print("Your selection: ");
 
@@ -43,7 +47,7 @@ public class Flight extends Ticket {
                             System.out.println("Please select another flight.");
                         }
                     } while (number.equals(""));
-                    
+
                     if (number.equals("FULL")) {
                         break;
                     } else {
@@ -57,6 +61,18 @@ public class Flight extends Ticket {
                         number = getTicket(input.nextLine());
                     } while (number.equals(""));
 
+                    System.out.println("Would you like to cancel your ticket? (Y/N)");
+                    if (input.nextLine().equalsIgnoreCase("Y")) {
+                        returned = returnTicket(number.toUpperCase());
+                    }
+
+                    String flight = number.toUpperCase().substring(0, 4);
+                    if (flight == "G100") {
+                        returnSeat(returned, G100);
+                    } else if (flight == "G400") {
+                        returnSeat(returned, G400);
+                    }
+
                     break;
                 default:
                     System.out.println("\n\nCommand not recognized. Please try again.");
@@ -68,10 +84,7 @@ public class Flight extends Ticket {
     }
 
     /*
-     * TO-DO: CHECK IF PLANE IS FULL USING AIRPLANEFULL() METHOD
-     * TO-DO: CHECK IF TICKETNUM IS ALREADY IN USE
      * TO-DO: REGEX FOR NAME (?)
-     * TO-DO: FIX THIS COMMENT BLOCK
      */
     public String buyTicket(String flightNum) {
         Ticket ticket;
@@ -119,6 +132,9 @@ public class Flight extends Ticket {
         }
     }
 
+    /*
+     * TO-DO: FIX THIS COMMENT BLOCK
+     */
     public boolean AirplaneFull(boolean[][] flight) throws AirplaneFullException {
         int totalSeats = (flight.length * flight[0].length);
         int unavailableSeats = 0;
@@ -138,6 +154,42 @@ public class Flight extends Ticket {
     }
 
     /*
+     * TO-DO: CHANGE ENTERED SEAT FROM BOOKED TO AVAILABLE
+     */
+    public void returnSeat(String seat, boolean[][] flight) {
+        int row, column = 0;
+        String columnLabel = "";
+        if (seat.length() == 2) {
+            row = Integer.parseInt(seat.substring(0, 1));
+            columnLabel = seat.substring(1, 2);
+         } else {
+            row = Integer.parseInt(seat.substring(0, 2));
+            columnLabel = seat.substring(2, 3);
+         }
+
+         switch(columnLabel) {
+                case "A":
+                    column = 0;
+                    break;
+                case "B":
+                    column = 1;
+                    break;
+                case "C":
+                    column = 2;
+                    break;
+         }
+
+         for (int i = 0; i < flight.length; i++) {
+             for (int j = 0; j < flight[i].length; j++) {
+                 if (i == row && j == column) {
+                     flight[i][j] = false;
+                 }
+             }
+         }
+         
+        
+    }
+    /*
      * TO-DO: FIX THIS COMMENT BLOCK
      */
     public void displaySeats(boolean[][] flightNum) {
@@ -147,14 +199,15 @@ public class Flight extends Ticket {
 
             for (int j = 0; j < flightNum[i].length; j++) {
                 if (flightNum[i][j] == false) {
-                    System.out.print(" O |");
+                    System.out.print("   |");
                 } else {
                     System.out.print(" X |");
                 }
             }
             System.out.println("\n   -------------");
         }
-        System.out.println("\nO = Available\tX = Unavailable\n");
+        //System.out.println("\nO = Available\tX = Unavailable\n");
+        System.out.println("\nX = Unavailable\n");
     }
 
     /*
@@ -175,7 +228,7 @@ public class Flight extends Ticket {
             System.out.println("Invalid seat selection. Please try again.");
             return "";
         } else {
-            String[] seatArray = seat.split(",");
+            seatArray = seat.split(",");
             if (!seatArray[0].matches("\\d+")) {
                 System.out.println("Invalid seat selection. Please try again.");
                 return "";
