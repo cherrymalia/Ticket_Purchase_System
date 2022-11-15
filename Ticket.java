@@ -49,7 +49,7 @@ public class Ticket {
             if (num.equals(tickets.get(i).ticketNum)) {
                 seat = tickets.get(i).seatNum;
                 tickets.remove(i);
-                System.out.println("Ticket " + num + " has been cancelled.");
+                System.out.println("Ticket " + num + " has been cancelled.\n");
             }
         }
         return seat;
@@ -89,9 +89,9 @@ public class Ticket {
         // check if num is seat number or ticket number
         // find ticket in tickets array that ticketNum matches num
         // print ticket info\
-
+        num = num.toUpperCase();
         System.out.println("\n===============================================");
-        if (num.toUpperCase().matches("^[G][\\d]{7}$")) {
+        if (num.matches("^[G][\\d]{7}$")) {
             for (int i = 0; i < tickets.size(); i++) {
                 if (tickets.get(i).ticketNum.equals(num)) {
                     System.out.println(tickets.get(i).name + "\nTicket: " + tickets.get(i).ticketNum);
@@ -103,12 +103,12 @@ public class Ticket {
                         System.out.println("\nDecember 9, 2022\nGSO-SEA | 4:00 PM - 11:30 PM\t(10 hr 30 min)");
                     }
                     System.out.println("===============================================\n");
-                    return "printed";
+                    return num;
                 }
             }
             System.out.println("Ticket not found.");
             System.out.println("===============================================\n");
-            return "printed";
+            return "not found";
         } else {
             System.out.println("Invalid input. Please try again.");
             System.out.println("===============================================\n");
