@@ -26,6 +26,7 @@ public class Flight extends Ticket {
      * CORRECT FLOW AFTER CANCELLING TICKET
      */
     public void mainMenu() {
+        testFull(G400);
         String selection = "";
         String number = "";
         String returned = "";
@@ -36,6 +37,7 @@ public class Flight extends Ticket {
             selection = input.nextLine();
             switch (selection) {
                 case "1":
+                    // String repeat = "";
                     System.out.println("\n***********************************************");
                     flightInfo();
                     System.out.println("***********************************************\n");
@@ -53,6 +55,12 @@ public class Flight extends Ticket {
                     } else {
                         confirmation(number);
                     }
+                    /*
+                     * System.out.println("***********************************************");
+                     * System.out.print("Would you like to purchase another ticket? (Y/N): ");
+                     * repeat = input.nextLine();
+                     * System.out.println("***********************************************");
+                     */
                     break;
                 case "2":
 
@@ -61,16 +69,22 @@ public class Flight extends Ticket {
                         number = getTicket(input.nextLine());
                     } while (number.equals(""));
 
-                    System.out.println("Would you like to cancel your ticket? (Y/N)");
-                    if (input.nextLine().equalsIgnoreCase("Y")) {
-                        returned = returnTicket(number.toUpperCase());
-                    }
+                    if (number.equals("not found")) {
+                        break;
+                    } else {
+                        System.out.print("Would you like to cancel your ticket? (Y/N): ");
+                        if (input.nextLine().equalsIgnoreCase("Y")) {
+                            returned = returnTicket(number.toUpperCase());
+                        } else {
+                            break;
+                        }
 
-                    String flight = number.toUpperCase().substring(0, 4);
-                    if (flight == "G100") {
-                        returnSeat(returned, G100);
-                    } else if (flight == "G400") {
-                        returnSeat(returned, G400);
+                        String flight = number.toUpperCase().substring(0, 4);
+                        if (flight.equals("G100")) {
+                            returnSeat(returned, G100);
+                        } else {
+                            returnSeat(returned, G400);
+                        }
                     }
 
                     break;
@@ -79,6 +93,14 @@ public class Flight extends Ticket {
                     System.out.println("\n\"1\" - Purchase a new ticket \n\"2\" - View existing ticket");
                     System.out.print("Your selection: ");
                     break;
+            }
+        }
+    }
+
+    public void testFull(boolean[][] flight) {
+        for (int i = 0; i < flight.length; i++) {
+            for (int j = 0; j < flight[i].length; j++) {
+                flight[i][j] = true;
             }
         }
     }
@@ -160,35 +182,35 @@ public class Flight extends Ticket {
         int row, column = 0;
         String columnLabel = "";
         if (seat.length() == 2) {
-            row = Integer.parseInt(seat.substring(0, 1));
+            row = Integer.parseInt(seat.substring(0, 1))-1;
             columnLabel = seat.substring(1, 2);
-         } else {
-            row = Integer.parseInt(seat.substring(0, 2));
+        } else {
+            row = Integer.parseInt(seat.substring(0, 2))-1;
             columnLabel = seat.substring(2, 3);
-         }
+        }
 
-         switch(columnLabel) {
-                case "A":
-                    column = 0;
-                    break;
-                case "B":
-                    column = 1;
-                    break;
-                case "C":
-                    column = 2;
-                    break;
-         }
+        switch (columnLabel) {
+            case "A":
+                column = 0;
+                break;
+            case "B":
+                column = 1;
+                break;
+            case "C":
+                column = 2;
+                break;
+        }
 
-         for (int i = 0; i < flight.length; i++) {
-             for (int j = 0; j < flight[i].length; j++) {
-                 if (i == row && j == column) {
-                     flight[i][j] = false;
-                 }
-             }
-         }
-         
-        
+        for (int i = 0; i < flight.length; i++) {
+            for (int j = 0; j < flight[i].length; j++) {
+                if (i == row && j == column) {
+                    flight[i][j] = false;
+                }
+            }
+        }
+
     }
+
     /*
      * TO-DO: FIX THIS COMMENT BLOCK
      */
@@ -206,7 +228,6 @@ public class Flight extends Ticket {
             }
             System.out.println("\n   -------------");
         }
-        //System.out.println("\nO = Available\tX = Unavailable\n");
         System.out.println("\nX = Unavailable\n");
     }
 
