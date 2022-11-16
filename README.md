@@ -20,7 +20,9 @@ A method airplaneFull to check if there are any seats available.
 ```
 3. buyTicket method:
 ```
-A person purchases a ticket via buyTicket method. This method returns an integer indicating the row number and a character indicating the seat that could be A, B, or C. If a customer tries to buy a ticket but all tickets are sold out an AirplaneFullException exception will be thrown.
+A person purchases a ticket via buyTicket method. This method returns an integer indicating the row number and a character 
+indicating the seat that could be A, B, or C. If a customer tries to buy a ticket but all tickets are sold out an 
+AirplaneFullException exception will be thrown.
 ```
 4. AirplaneFullException:
 ```
