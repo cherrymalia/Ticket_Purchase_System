@@ -39,8 +39,7 @@ public class Ticket {
     }
 
     /*
-     * TO-DO: CORRECTLY MATCH TICKET NUMBER TO RECORD IN TICKETS ARRAYLIST
-     * REMOVE TICKET FROM ARRAYLIST AND RETURN SEAT NUMBER
+     * TO-DO: FIX THIS COMMENT BLOCK
      */
     public String returnTicket(String num) {
         String seat = "";
@@ -58,9 +57,9 @@ public class Ticket {
      * TO-DO: FIX THIS COMMENT BLOCK
      */
     public void confirmation(String seat) {
-        System.out.println("\n\n===================================================");
+        System.out.println("\n\n=====================================================");
         System.out.println("Thank you for purchasing a ticket with Green Company!");
-        System.out.println("===================================================");
+        System.out.println("=====================================================");
         int index = tickets.size() - 1;
         if (tickets.get(index).seatNum.equals(seat)) {
             System.out.println(tickets.get(index).name + "\nTicket: " + tickets.get(index).ticketNum);

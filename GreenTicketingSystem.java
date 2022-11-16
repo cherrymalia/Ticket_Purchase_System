@@ -24,5 +24,4 @@ public class GreenTicketingSystem {
     }
 }
 
-
 //fix comments for methods and files

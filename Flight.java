@@ -191,8 +191,13 @@ public class Flight extends Ticket {
                     System.out.println(e.getMessage());
                     return "FULL";
                 }
-                System.out.print("\nEnter your first and last name: ");
+                System.out.print("\nEnter your first and last name (ex: J D or John Doe): ");
                 name = input.nextLine();
+                while (!name.matches("^[a-zA-Z']+\s[a-zA-Z-']+")) {
+                    System.out.println("Invalid input. Please try again.");
+                    System.out.print("Enter your first and last name: ");
+                    name = input.nextLine();
+                }
                 displaySeats(G100);
                 do {
                     seat = seatSelector(G100);
@@ -211,6 +216,11 @@ public class Flight extends Ticket {
                 }
                 System.out.print("\nEnter your first and last name: ");
                 name = input.nextLine();
+                while (!name.matches("^[a-zA-Z']+\s[a-zA-Z-']+")) {
+                    System.out.println("Invalid input. Please try again.");
+                    System.out.print("Enter your first and last name: ");
+                    name = input.nextLine();
+                }
                 displaySeats(G400);
                 do {
                     seat = seatSelector(G400);
