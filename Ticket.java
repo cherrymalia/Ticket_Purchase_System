@@ -83,7 +83,7 @@ public class Ticket {
     }
 
     /*
-     * TO-DO: ACCURATELY MATCH TICKET NUMBER EVEN IF USER ENTERS LOWERCASE G
+     * TO-DO: FIX THIS COMMENT BLOCK
      */
     public String getTicket(String num) {
         // check if num is seat number or ticket number
@@ -107,7 +107,7 @@ public class Ticket {
                 }
             }
             System.out.println("Ticket not found.");
-            System.out.println("===============================================\n");
+            System.out.println("===============================================");
             return "not found";
         } else {
             System.out.println("Invalid input. Please try again.");

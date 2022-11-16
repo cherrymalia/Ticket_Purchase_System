@@ -21,15 +21,14 @@ public class Flight extends Ticket {
     }
 
     /*
-     * TO-DO: MAKE NAVIGATION BETWEEN MENU OPTIONS QUICKER
-     * ADD OPTION TO PURCHASE TICKETS BACK TO BACK
-     * CORRECT FLOW AFTER CANCELLING TICKET
+     * TO-DO: FIX THIS COMMENT BLOCK
      */
     public void mainMenu() {
-        testFull(G400);
+        // testFull(G400);
         String selection = "";
         String number = "";
         String returned = "";
+        String repeat = "Y";
         System.out.println("\n\t\tMain Menu \n\"1\" - Purchase a new ticket \n\"2\" - View existing ticket");
         System.out.print("Your selection: ");
 
@@ -37,56 +36,126 @@ public class Flight extends Ticket {
             selection = input.nextLine();
             switch (selection) {
                 case "1":
-                    // String repeat = "";
-                    System.out.println("\n***********************************************");
-                    flightInfo();
-                    System.out.println("***********************************************\n");
+                    while (repeat.equalsIgnoreCase("Y")) {
+                        System.out.println("\n***********************************************");
+                        flightInfo();
+                        System.out.println("***********************************************\n");
 
-                    do {
-                        System.out.print("Please enter the flight number you would like to purchase: ");
-                        number = buyTicket(input.nextLine());
+                        do {
+                            System.out.print("Please enter the flight number you would like to purchase: ");
+                            number = buyTicket(input.nextLine());
+                            if (number.equals("FULL")) {
+                                System.out.println("Please select another flight.");
+                            }
+                        } while (number.equals(""));
+
                         if (number.equals("FULL")) {
-                            System.out.println("Please select another flight.");
+                            break;
+                        } else {
+                            confirmation(number);
                         }
-                    } while (number.equals(""));
+                            System.out.println("***********************************************");
+                            System.out.print("Would you like to purchase another ticket? (Y/N): ");
+                            repeat = input.nextLine();
+                            System.out.println("***********************************************");
 
-                    if (number.equals("FULL")) {
-                        break;
-                    } else {
-                        confirmation(number);
+                        while (!repeat.equalsIgnoreCase("Y")){
+                            
+                            if (repeat.equalsIgnoreCase("N")) {
+                                break;
+                            } else {
+                                System.out.println("Invalid input. Please try again.\n");
+                                repeat = "";
+                            }
+                            System.out.println("***********************************************");
+                            System.out.print("Would you like to purchase another ticket? (Y/N): ");
+                            repeat = input.nextLine();
+                            System.out.println("***********************************************");
+                        }
                     }
-                    /*
-                     * System.out.println("***********************************************");
-                     * System.out.print("Would you like to purchase another ticket? (Y/N): ");
-                     * repeat = input.nextLine();
-                     * System.out.println("***********************************************");
-                     */
+
                     break;
                 case "2":
-
-                    do {
-                        System.out.print("\nPlease enter your ticket number: ");
-                        number = getTicket(input.nextLine());
-                    } while (number.equals(""));
-
-                    if (number.equals("not found")) {
-                        break;
-                    } else {
-                        System.out.print("Would you like to cancel your ticket? (Y/N): ");
-                        if (input.nextLine().equalsIgnoreCase("Y")) {
-                            returned = returnTicket(number.toUpperCase());
-                        } else {
-                            break;
-                        }
-
-                        String flight = number.toUpperCase().substring(0, 4);
-                        if (flight.equals("G100")) {
-                            returnSeat(returned, G100);
-                        } else {
-                            returnSeat(returned, G400);
-                        }
+                    if (tickets.size() == 0) {
+                        System.out.println("There are no tickets to view.");
+                        repeat = "";
                     }
 
+                    while (repeat.equalsIgnoreCase("Y")) {
+                        do {
+                            System.out.print("\nPlease enter your ticket number: ");
+                            number = getTicket(input.nextLine());
+                        } while (number.equals(""));
+
+                        if (number.equals("not found")) {
+                            repeat = "Y";
+                        } else {
+                            System.out.println("***********************************************");
+                            System.out.print("Would you like to cancel your ticket? (Y/N): ");
+                            repeat = input.nextLine();
+                            System.out.println("***********************************************");
+
+                            if (repeat.equalsIgnoreCase("Y")) {
+                                returned = returnTicket(number.toUpperCase());
+                            } else {
+                                while (!repeat.equalsIgnoreCase("Y")){
+                            
+                                    if (repeat.equalsIgnoreCase("N")) {
+                                        break;
+                                    } else {
+                                        System.out.println("Invalid input. Please try again.\n");
+                                        repeat = "";
+                                    }
+                                    System.out.println("***********************************************");
+                                    System.out.print("Would you like to cancel your ticket? (Y/N): ");
+                                    repeat = input.nextLine();
+                                    System.out.println("***********************************************");
+                                }
+                                returned = returnTicket(number.toUpperCase());
+                            }
+
+                            String flight = number.toUpperCase().substring(0, 4);
+                            if (flight.equals("G100")) {
+                                returnSeat(returned, G100);
+                            } else {
+                                returnSeat(returned, G400);
+                            }
+
+                            if (tickets.size() == 0) {
+                                System.out.println("\nThere are no tickets to view.");
+                                break;
+                            }
+
+                            System.out.println("***********************************************");
+                            System.out.print("Would you like to view another ticket? (Y/N): ");
+                            repeat = input.nextLine();
+                            System.out.println("***********************************************");
+                            
+                            if (repeat.equalsIgnoreCase("Y") && tickets.size() == 0) {
+                                System.out.println("\nThere are no tickets to view.");
+                                break;
+                            }
+
+                            while (!repeat.equalsIgnoreCase("Y")){
+                                if (tickets.size() == 0) {
+                                    System.out.println("\nThere are no tickets to view.");
+                                    break;
+                                }
+                                if (repeat.equalsIgnoreCase("N")) {
+                                    break;
+                                } else {
+                                    System.out.println("Invalid input. Please try again.\n");
+                                    repeat = "";
+                                }
+                                System.out.println("***********************************************");
+                                System.out.print("Would you like to view another ticket? (Y/N): ");
+                                repeat = input.nextLine();
+                                System.out.println("***********************************************");
+                            }
+
+                            
+                        }
+                    }
                     break;
                 default:
                     System.out.println("\n\nCommand not recognized. Please try again.");
@@ -97,13 +166,15 @@ public class Flight extends Ticket {
         }
     }
 
-    public void testFull(boolean[][] flight) {
-        for (int i = 0; i < flight.length; i++) {
-            for (int j = 0; j < flight[i].length; j++) {
-                flight[i][j] = true;
-            }
-        }
-    }
+    /*
+     * public void testFull(boolean[][] flight) {
+     * for (int i = 0; i < flight.length; i++) {
+     * for (int j = 0; j < flight[i].length; j++) {
+     * flight[i][j] = true;
+     * }
+     * }
+     * }
+     */
 
     /*
      * TO-DO: REGEX FOR NAME (?)
@@ -176,16 +247,16 @@ public class Flight extends Ticket {
     }
 
     /*
-     * TO-DO: CHANGE ENTERED SEAT FROM BOOKED TO AVAILABLE
+     * TO-DO: FIX THIS COMMENT BLOCK
      */
     public void returnSeat(String seat, boolean[][] flight) {
         int row, column = 0;
         String columnLabel = "";
         if (seat.length() == 2) {
-            row = Integer.parseInt(seat.substring(0, 1))-1;
+            row = Integer.parseInt(seat.substring(0, 1)) - 1;
             columnLabel = seat.substring(1, 2);
         } else {
-            row = Integer.parseInt(seat.substring(0, 2))-1;
+            row = Integer.parseInt(seat.substring(0, 2)) - 1;
             columnLabel = seat.substring(2, 3);
         }
 
