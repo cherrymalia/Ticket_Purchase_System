@@ -39,6 +39,3 @@ public class GreenTicketingSystem {
 
     }
 }
-
-// input validatio for main menu
-// change date on ticket to current date ???

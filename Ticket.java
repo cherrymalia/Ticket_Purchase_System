@@ -5,13 +5,15 @@
  *
  * @date Nov. 2022
  **/
-
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * The Ticket class contains the methods to create a ticket for a flight.
  */
 public class Ticket {
+    Date date = new Date();
+    SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
     String name, flightNum, ticketNum, seatNum;
     ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 
@@ -49,8 +51,8 @@ public class Ticket {
      */
     public void flightInfo() {
         System.out.println("Available Flights:");
-        System.out.println("Green #100\t   December 9, 2022\nGSO - EWR | 6:00 AM - 7:30 AM\t(1 hr 30 min)\n");
-        System.out.println("Green #400\t   December 9, 2022\nGSO - SEA | 4:00 PM - 11:30 PM\t(10 hr 30 min)");
+        System.out.println("Green #100\t   " + formatter.format(date) + "\nGSO - EWR | 6:00 AM - 7:30 AM\t(1 hr 30 min)\n");
+        System.out.println("Green #400\t   " + formatter.format(date) + "\nGSO - SEA | 4:00 PM - 11:30 PM\t(10 hr 30 min)");
     }
 
     /**
@@ -87,9 +89,9 @@ public class Ticket {
             System.out.println(
                     "Flight: Green #" + tickets.get(index).flightNum + "\tSeat: " + tickets.get(index).seatNum);
             if (tickets.get(index).flightNum.equals("100")) {
-                System.out.println("\nDecember 9, 2022\nGSO-EWR | 6:30 AM - 7:30 AM\t(1 hr 30 min)");
+                System.out.println("\n" + formatter.format(date) + "\nGSO-EWR | 6:30 AM - 7:30 AM\t(1 hr 30 min)");
             } else if (tickets.get(index).flightNum.equals("400")) {
-                System.out.println("\nDecember 9, 2022\nGSO-SEA | 4:00 PM - 11:30 PM\t(10 hr 30 min)");
+                System.out.println("\n" + formatter.format(date) + "\nGSO-SEA | 4:00 PM - 11:30 PM\t(10 hr 30 min)");
             }
             System.out.println("==================================================\n");
         }
@@ -123,9 +125,9 @@ public class Ticket {
                     System.out.println(
                             "Flight: Green #" + tickets.get(i).flightNum + "\tSeat: " + tickets.get(i).seatNum);
                     if (tickets.get(i).flightNum.equals("100")) {
-                        System.out.println("\nDecember 9, 2022\nGSO-EWR | 6:30 AM - 7:30 AM\t(1 hr 30 min)");
+                        System.out.println("\n" + formatter.format(date) + "\nGSO-EWR | 6:30 AM - 7:30 AM\t(1 hr 30 min)");
                     } else if (tickets.get(i).flightNum.equals("400")) {
-                        System.out.println("\nDecember 9, 2022\nGSO-SEA | 4:00 PM - 11:30 PM\t(10 hr 30 min)");
+                        System.out.println("\n" + formatter.format(date) + "\nGSO-SEA | 4:00 PM - 11:30 PM\t(10 hr 30 min)");
                     }
                     System.out.println("===============================================\n");
                     return num;

@@ -37,7 +37,7 @@ public class Flight extends Ticket {
      * @param none
      */
     public void mainMenu() {
-        testFull(G100);
+        //testFull(G100);
         // testFull(G400);
         String selection = "";
         String number = "";
