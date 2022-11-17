@@ -1,9 +1,17 @@
 
-/*
-    *  TO-DO: FIX COMMENTS
-    */
+/**
+ * @file Flight.java
+ * 
+ * @author Malia Cherry
+ *
+ * @date Nov. 2022
+ **/
+
 import java.util.*;
 
+/**
+ * The Flight class contains the methods used to create and book flights.
+ */
 public class Flight extends Ticket {
     Scanner input = new Scanner(System.in);
     Random rand = new Random();
@@ -12,18 +20,24 @@ public class Flight extends Ticket {
     boolean[][] G100;
     boolean[][] G400;
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Constructor for the Flight class. Initializes the array of seats.
+     *
+     * @param none
      */
     public Flight() {
         G100 = new boolean[7][3];
         G400 = new boolean[20][3];
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Prompt the user to select an option from the main menu and
+     * calls to the function that corresponds to the user's selection.
+     *
+     * @param none
      */
     public void mainMenu() {
+        testFull(G100);
         // testFull(G400);
         String selection = "";
         String number = "";
@@ -46,6 +60,7 @@ public class Flight extends Ticket {
                             number = buyTicket(input.nextLine());
                             if (number.equals("FULL")) {
                                 System.out.println("Please select another flight.");
+                                number = "";
                             }
                         } while (number.equals(""));
 
@@ -54,13 +69,13 @@ public class Flight extends Ticket {
                         } else {
                             confirmation(number);
                         }
-                            System.out.println("***********************************************");
-                            System.out.print("Would you like to purchase another ticket? (Y/N): ");
-                            repeat = input.nextLine();
-                            System.out.println("***********************************************");
+                        System.out.println("***********************************************");
+                        System.out.print("Would you like to purchase another ticket? (Y/N): ");
+                        repeat = input.nextLine();
+                        System.out.println("***********************************************");
 
-                        while (!repeat.equalsIgnoreCase("Y")){
-                            
+                        while (!repeat.equalsIgnoreCase("Y")) {
+
                             if (repeat.equalsIgnoreCase("N")) {
                                 break;
                             } else {
@@ -98,8 +113,8 @@ public class Flight extends Ticket {
                             if (repeat.equalsIgnoreCase("Y")) {
                                 returned = returnTicket(number.toUpperCase());
                             } else {
-                                while (!repeat.equalsIgnoreCase("Y")){
-                            
+                                while (!repeat.equalsIgnoreCase("Y")) {
+
                                     if (repeat.equalsIgnoreCase("N")) {
                                         break;
                                     } else {
@@ -130,13 +145,13 @@ public class Flight extends Ticket {
                             System.out.print("Would you like to view another ticket? (Y/N): ");
                             repeat = input.nextLine();
                             System.out.println("***********************************************");
-                            
+
                             if (repeat.equalsIgnoreCase("Y") && tickets.size() == 0) {
                                 System.out.println("\nThere are no tickets to view.");
                                 break;
                             }
 
-                            while (!repeat.equalsIgnoreCase("Y")){
+                            while (!repeat.equalsIgnoreCase("Y")) {
                                 if (tickets.size() == 0) {
                                     System.out.println("\nThere are no tickets to view.");
                                     break;
@@ -153,7 +168,6 @@ public class Flight extends Ticket {
                                 System.out.println("***********************************************");
                             }
 
-                            
                         }
                     }
                     break;
@@ -166,18 +180,24 @@ public class Flight extends Ticket {
         }
     }
 
-    /*
-     * public void testFull(boolean[][] flight) {
-     * for (int i = 0; i < flight.length; i++) {
-     * for (int j = 0; j < flight[i].length; j++) {
-     * flight[i][j] = true;
-     * }
-     * }
-     * }
+    /**
+     * Changes all seats on the plane to true(booked) to test the full flight.
+     *
+     * @param flight the flight to be tested
      */
+    public void testFull(boolean[][] flight) {
+        for (int i = 0; i < flight.length; i++) {
+            for (int j = 0; j < flight[i].length; j++) {
+                flight[i][j] = true;
+            }
+        }
+    }
 
-    /*
-     * TO-DO: REGEX FOR NAME (?)
+    /**
+     * Gathers information from user to purchase a ticket for the given flight.
+     * Generates a ticket with entered information.
+     *
+     * @param flightNum the flight the user wants to buy a ticket for
      */
     public String buyTicket(String flightNum) {
         Ticket ticket;
@@ -235,8 +255,10 @@ public class Flight extends Ticket {
         }
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Throws an exception if the flight is full
+     *
+     * @param flight the flight to be checked
      */
     public boolean AirplaneFull(boolean[][] flight) throws AirplaneFullException {
         int totalSeats = (flight.length * flight[0].length);
@@ -256,8 +278,11 @@ public class Flight extends Ticket {
 
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Changes the seat on the given flight from true(booked) to false(unbooked).
+     *
+     * @param seat   the seat to be returned
+     * @param flight the flight the seat is in
      */
     public void returnSeat(String seat, boolean[][] flight) {
         int row, column = 0;
@@ -292,8 +317,10 @@ public class Flight extends Ticket {
 
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Displays the seats on the given flight.
+     *
+     * @param flightNum the flight to be displayed
      */
     public void displaySeats(boolean[][] flightNum) {
         System.out.println("\n\n     A   B   C\n   -------------");
@@ -312,8 +339,10 @@ public class Flight extends Ticket {
         System.out.println("\nX = Unavailable\n");
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Changes a seat on the given flight from false(unbooked) to true(booked).
+     *
+     * @param flightNum the flight to the seat will be booked on
      */
     public String seatSelector(boolean[][] flightNum) {
         // display seats for flight and prompt for seat selection

@@ -1,7 +1,23 @@
 
+/**
+ * @file GreenTicketingSystem.java
+ * 
+ * @author Malia Cherry
+ *
+ * @date Nov. 2022
+ **/
+
 import java.util.Scanner;
 
+/**
+ * The GreenTicketingSystem class contains the main method to run the program. 
+ */
 public class GreenTicketingSystem {
+    /**
+     * The main method creates a new Flight object and calls the mainMenu method.
+     * 
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String repeat = "";
@@ -24,4 +40,5 @@ public class GreenTicketingSystem {
     }
 }
 
-//fix comments for methods and files
+// input validatio for main menu
+// change date on ticket to current date ???

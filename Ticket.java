@@ -1,16 +1,24 @@
-/*
-     *  TO-DO: FIX THIS COMMENT BLOCK
-     */
+/**
+ * @file Ticket.java
+ * 
+ * @author Malia Cherry
+ *
+ * @date Nov. 2022
+ **/
 
 import java.util.*;
 
+/**
+ * The Ticket class contains the methods to create a ticket for a flight.
+ */
 public class Ticket {
-
     String name, flightNum, ticketNum, seatNum;
     ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Default constructor for the Ticket class.
+     *
+     * @param none
      */
     public Ticket() {
         name = "";
@@ -19,8 +27,13 @@ public class Ticket {
         seatNum = "";
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Overloaded constructor for the Ticket class used to create a ticket.
+     *
+     * @param user  The name of the user
+     * @param flight    The flight number
+     * @param ticket    The ticket number
+     * @param seat  The seat number
      */
     public Ticket(String user, String flight, String ticket, String seat) {
         name = user;
@@ -29,8 +42,10 @@ public class Ticket {
         seatNum = seat;
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Displays the information about the flights.
+     *
+     * @param none
      */
     public void flightInfo() {
         System.out.println("Available Flights:");
@@ -38,8 +53,11 @@ public class Ticket {
         System.out.println("Green #400\t   December 9, 2022\nGSO - SEA | 4:00 PM - 11:30 PM\t(10 hr 30 min)");
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Finds the ticket in the array list from the ticket number. 
+     * If found, the ticket is removed from the array list.
+     *
+     * @param num    The ticket number
      */
     public String returnTicket(String num) {
         String seat = "";
@@ -53,8 +71,11 @@ public class Ticket {
         }
         return seat;
     }
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+
+    /**
+     * Displays the ticket to the user after a flight is booked.
+     *
+     * @param seat The seat number
      */
     public void confirmation(String seat) {
         System.out.println("\n\n=====================================================");
@@ -74,15 +95,20 @@ public class Ticket {
         }
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Adds the ticket to the array list.
+     *
+     * @param bookingInfo   The array list of the ticket information
      */
     public void generateTicket(Ticket bookingInfo) {
         tickets.add(bookingInfo);
     }
 
-    /*
-     * TO-DO: FIX THIS COMMENT BLOCK
+    /**
+     * Finds the ticket in the array list from the ticket number and 
+     * displays the ticket information to the user.
+     *
+     * @param num  The ticket number
      */
     public String getTicket(String num) {
         // check if num is seat number or ticket number
